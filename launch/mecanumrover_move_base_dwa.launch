@@ -1,0 +1,81 @@
+<!-- 
+  MEGAROVER move base demo launch
+  USE STATIC MAP
+-->
+
+<launch>
+
+  <!-- オドメトリの配信ノード -->
+  <node pkg="megarover_samples" type="pub_odom" name="pub_odom" />
+
+  <!-- メガローバーの回転中心からLRFまでの座標変換 -->
+  <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.2 0 0.08 3.14159 3.14159 0 base_link horizontal_laser_link 1" />
+
+  <!-- LRFのデバイスドライバノード -->
+  <node name="horizontal_laser" pkg="urg_node"
+    type="urg_node" >
+    <param name="serial_port" value="/dev/ttyACM0" />　<!-- デバイスドライバファイルのパス -->
+    <param name="frame_id" value="horizontal_laser_link" />
+    <param name="angle_min" value="-1.57" />　<!-- LRFの有効検出角度（下限） -->
+    <param name="angle_max" value="1.57" />  <!-- LRFの有効検出角度（上限） -->
+  </node>
+
+  
+ 
+  <!-- mapサーバー -->
+  <arg name="map_file" default="$(find megarover_samples)/map/gmap22.yaml"/>　<!--マップファイルのパスの指定 -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+ 
+  <!-- 
+    自己位置推定ノード amcl
+    各パラメータについては http://wiki.ros.org/amcl
+    を参照してください。
+  -->
+  <!--<include file="$(find amcl)/examples/amcl_diff.launch" />-->
+  <node pkg="amcl" type="amcl" name="amcl" output="screen" args="/scan:=/scan">
+　　　　<param name="gui_publish_rate" value="5.0"/>
+    <param name="odom_model_type" value="omni"/>
+    <param name="min_particles" value="500"/>
+    <param name="max_particles" value="2000"/>
+    <param name="kld_err" value="0.05"/>
+    <param name="kld_z" value="0.95"/>
+    <param name="odom_alpha1" value="7.0"/>		
+    <param name="odom_alpha2" value="10.0"/>
+    <param name="odom_alpha3" value="7.0"/>
+    <param name="odom_alpha4" value="10.0"/>
+    <param name="laser_max_beams" value="60"/>
+    <param name="laser_z_hit" value="0.7"/>
+    <param name="laser_z_short" value="0.05"/>
+    <param name="laser_z_max" value="0.05"/>
+    <param name="laser_z_rand" value="0.3"/>
+    <param name="laser_sigma_hit" value="0.2"/>
+    <param name="laser_lambda_short" value="0.1"/>
+    <param name="laser_lambda_short" value="0.1"/>
+    <param name="laser_model_type" value="likelihood_field"/>
+    <!-- <param name="laser_model_type" value="beam"/> -->
+    <param name="laser_likelihood_max_dist" value="2.0"/>
+    <param name="update_min_d" value="0.05"/>
+    <param name="update_min_a" value="0.03"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="base_frame_id" value="base_link" />
+    <param name="resample_interval" value="1"/>
+    <param name="transform_tolerance" value="0.2"/>
+    <param name="recovery_alpha_slow" value="0.001"/>
+    <param name="recovery_alpha_fast" value="0.01"/>
+    <param name="use_map_topic" value="false" />
+  </node>
+ 
+  <!--- 経路計画，指令値生成ノード　move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" args="/cmd_vel:=/rover_twist">
+    <rosparam file="$(find megarover_samples)/configuration_files/megarover_costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find megarover_samples)/configuration_files/megarover_costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find megarover_samples)/configuration_files/megarover_local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find megarover_samples)/configuration_files/megarover_global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find megarover_samples)/configuration_files/megarover_dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find megarover_samples)/configuration_files/megarover_move_base_params.yaml" command="load" />
+  </node>
+
+  <!-- Rviz -->
+  <node pkg="rviz" type="rviz" args="-d '$(find megarover_samples)/configuration_files/rviz/navigation.rviz'" name="visualizer" respawn="true" />
+</launch>
+

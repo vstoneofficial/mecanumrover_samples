@@ -1,0 +1,42 @@
+<!--
+ゲームパッド操作サンプルのlaunch
+
+rosserialを使ってROSとメガローバーを接続し、PCにゲームパッドを接続してから起動してください。
+
+起動コマンド：roslaunch megarover_samples joycon.launch
+ -->
+
+<launch>
+  <!-- オドメトリの配信ノード -->
+   <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
+
+  <!-- LRFのデバイスファイルパス -->
+　　<arg name="port_urg" default="/dev/ttyACM0" /> <!-- LRFのデバイスファイルパスを設定してください -->
+
+　　<!-- メガローバーの旋回中心からLRFまでの座標変換の設定 -->
+　　<node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.2 0 0.08 3.14159 3.14159 0 base_link laser 100" />
+
+　　<!-- LRFのデバイスドライバノード -->
+　　<node pkg="urg_node" type="urg_node" name="urg_node">
+       <param name="serial_port" value="$(arg port_urg)" />
+       <param name="angle_min" value="-1.57" /> <!-- 視野角の指定（最小値） -->
+       <param name="angle_max" value="1.57" />  <!-- 視野角の指定（最大値） -->
+　　</node>
+
+  <!-- joy node -->
+  <node pkg="joy" type="joy_node" name="mecanumrover_joy" respawn="true" >
+    <param name="dev" type="string" value="/dev/input/js0" /> <!-- デバイスファイルパスを正しく設定してください -->
+    <param name="deadzone" value="0.1"/>
+  </node>
+
+  <!-- joycon -->
+  <node pkg="mecanumrover_samples" type="joycon" name="joycon" respawn="true">
+    <param name="axis_linear" value="1" />
+    <param name="axis_angular" value="0" />
+    <param name="scale_linear" value="0.6" />
+    <param name="scale_angular" value="0.8" />
+    <param name="safety_button" value="2" />
+  </node>
+    
+
+</launch>

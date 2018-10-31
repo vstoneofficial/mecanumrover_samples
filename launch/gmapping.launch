@@ -1,0 +1,40 @@
+<!--
+SLAM（gmapping）サンプルのlaunch
+
+実行にはLRFが必要です。
+地図を生成していくためにはメガローバーを手動で移動させる必要があります。
+ゲームパッド操作サンプルまたはマウス（タッチパッド）操作サンプルを使用してください。
+
+起動コマンド： roslaunch megarover_samples gmapping.launch
+-->
+
+<launch>
+   <!-- オドメトリの配信ノード -->
+   <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
+
+　　<!-- LRFのデバイスファイルパス -->
+　　<arg name="port_urg" default="/dev/ttyACM0" /> <!-- LRFのデバイスファイルパスを設定してください -->
+
+　　<!-- メガローバーの旋回中心からLRFまでの座標変換の設定 -->
+　　<node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.1 0 0.08 3.14159 3.14159 0 base_link laser 100" />
+
+　　<!-- LRFのデバイスドライバノード -->
+　　<node pkg="urg_node" type="urg_node" name="urg_node">
+       <param name="serial_port" value="$(arg port_urg)" />
+       <param name="angle_min" value="-1.57" /> <!-- 視野角の指定（最小値） -->
+       <param name="angle_max" value="1.57" />  <!-- 視野角の指定（最大値） -->
+　　</node>
+
+  <!-- gmapping -->
+  <node pkg="gmapping" type="slam_gmapping" name="mapper">
+    <param name="maxUrange" value="5.2" type="double" />
+    <param name="delta" value="0.015" />
+    <param name="xmax" value="30" type="double" />
+    <param name="ymax" value="30" type="double" />
+    <param name="xmin" value="-30" type="double" />
+    <param name="ymin" value="-30" type="double" />
+  </node>
+
+  <!-- rviz(視覚化ツール) -->
+  <node pkg="rviz" type="rviz" args="-d '$(find mecanumrover_samples)/configuration_files/rviz/gmapping.rviz'" name="visualizer" respawn="true" />
+</launch>

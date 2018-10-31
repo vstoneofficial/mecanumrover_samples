@@ -1,0 +1,21 @@
+# base local planner params for MEGAROVER
+
+TrajectoryPlannerROS:
+  max_vel_x: 0.3
+  min_vel_x: 0.05
+  max_vel_theta: 0.7
+  min_vel_theta: 0.08
+  min_in_place_vel_theta: 0.08
+ 
+  acc_lim_theta: 0.1
+  acc_lim_x: 0.04
+  acc_lim_y: 0.04
+
+  yaw_goal_tolerance: 0.2
+  xy_goal_tolerance: 0.2
+ 
+  holonomic_robot: false
+ 
+  meter_scoring: true
+
+

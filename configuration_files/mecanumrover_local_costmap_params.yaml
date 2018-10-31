@@ -1,0 +1,27 @@
+# local costmap params for MEGAROVER
+
+local_costmap:
+  # 各TFフレームの設定
+  global_frame: odom
+  robot_base_frame: base_link
+
+  # 更新頻度の設定
+  update_frequency: 5.0
+  publish_frequency: 3.0
+
+  static_map: false
+  rolling_window: true
+
+  # ローカルコストマップの計算範囲
+  width: 3.0
+  height: 3.0
+
+  # ローカルコストマップの解像度
+  resolution: 0.015
+
+  # タイムスタンプのずれの許容量
+  transform_tolerance: 5.0
+
+  obstacle_layer:
+   laser_scan_sensor:
+     sensor_frame: horizontal_laser_link
