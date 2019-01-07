@@ -13,7 +13,7 @@ private:
 
   ros::NodeHandle nh_;
 
-  int linear_x_, linear_y_, angular_, safety_;
+  int linear_, angular_, safety_;
   double l_scale_, a_scale_;
   ros::Publisher vel_pub_;
   ros::Subscriber joy_sub_;
@@ -22,16 +22,14 @@ private:
 
 
 JoyCtrlMegarover::JoyCtrlMegarover():
-  linear_x_(1),
-  linear_y_(0),
-  angular_(3),
+  linear_(1),
+  angular_(0),
   a_scale_(0.8),
   l_scale_(0.6),
-  safety_(7)
+  safety_(2)
 {
 
-  nh_.param("/joycon/axis_linear_x", linear_x_, linear_x_);
-  nh_.param("/joycon/axis_linear_y", linear_y_, linear_y_);
+  nh_.param("/joycon/axis_linear", linear_, linear_);
   nh_.param("/joycon/axis_angular", angular_, angular_);
   nh_.param("/joycon/scale_angular", a_scale_, a_scale_);
   nh_.param("/joycon/scale_linear", l_scale_, l_scale_);
@@ -50,12 +48,10 @@ void JoyCtrlMegarover::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
   geometry_msgs::Twist twist;
   if(joy->buttons[safety_]){
     twist.angular.z = a_scale_*joy->axes[angular_];
-    twist.linear.x = l_scale_*joy->axes[linear_x_];
-    twist.linear.y = l_scale_*joy->axes[linear_y_];
+    twist.linear.x = l_scale_*joy->axes[linear_];
   }else{
     twist.angular.z =0;
     twist.linear.x = 0;
-    twist.linear.y = 0;
   }
   vel_pub_.publish(twist);
 }

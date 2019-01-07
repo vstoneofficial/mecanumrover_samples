@@ -1,0 +1,15 @@
+# golobal costmap params for MEGAROVER
+
+global_costmap:
+  # 各TFフレーム名の設定
+  global_frame: map
+  robot_base_frame: base_link
+  
+  # 更新頻度
+  update_frequency: 2.0
+
+  static_map: true
+
+  # タイムスタンプの差の許容量
+  transform_tolerance: 0.5
+
