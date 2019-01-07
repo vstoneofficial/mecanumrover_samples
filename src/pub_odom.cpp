@@ -13,6 +13,7 @@ int receive_flag = 0;
 
 void roverOdomCallback(const geometry_msgs::Twist::ConstPtr& rover_odom){
   vx = odom_kv * rover_odom->linear.x;
+  vy = odom_kv * rover_odom->linear.y;
   vth = odom_kth * rover_odom->angular.z;
   receive_flag = 1;
 }

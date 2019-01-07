@@ -8,18 +8,19 @@ rosserialを使ってROSとメガローバーを接続し、PCにゲームパッ
 
 <launch>
   <!-- joy node -->
-  <node pkg="joy" type="joy_node" name="megarover_joy" respawn="true" >
+  <node pkg="joy" type="joy_node" name="mecanumrover_joy" respawn="true" >
     <param name="dev" type="string" value="/dev/input/js0" /> <!-- デバイスファイルパスを正しく設定してください -->
-    <param name="deadzone" value="0.05"/>
+    <param name="deadzone" value="0.1"/>
   </node>
 
   <!-- joycon -->
-  <node pkg="megarover_samples" type="joycon" name="joycon" respawn="true">
-    <param name="axis_linear" value="1" />
-    <param name="axis_angular" value="0" />
-    <param name="scale_linear" value="0.6" />
-    <param name="scale_angular" value="0.8" />
-    <param name="safety_button" value="2" />
+  <node pkg="mecanumrover_samples" type="joycon" name="joycon" respawn="true">
+    <param name="axis_linear_x" value="1" />
+    <param name="axis_linear_y" value="0" />
+    <param name="axis_angular" value="3" />
+    <param name="scale_linear" value="0.8" />
+    <param name="scale_angular" value="1.0" />
+    <param name="safety_button" value="7" />
   </node>
     
 

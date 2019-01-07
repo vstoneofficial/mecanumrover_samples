@@ -7,6 +7,9 @@ rosserialを使ってROSとメガローバーを接続してから使用して�
 -->
 
 <launch>
+  <!-- オドメトリの配信ノード -->
+   <node pkg="megarover_samples" type="pub_odom" name="pub_odom" />
+
   <!-- マウスによる制御ノード -->
   <node pkg="mouse_teleop" type="mouse_teleop.py" name="mouse_teleop">
     <remap from="/mouse_vel" to="/rover_twist" />

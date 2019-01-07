@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>megarover_samples</name>
+  <name>mecanumrover_samples</name>
   <version>1.0.0</version>
-  <description>The megarover_samples package</description>
+  <description>The mecanumrover_samples package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

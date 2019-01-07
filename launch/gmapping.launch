@@ -10,7 +10,7 @@ SLAM（gmapping）サンプルのlaunch
 
 <launch>
    <!-- オドメトリの配信ノード -->
-   <node pkg="megarover_samples" type="pub_odom" name="pub_odom" />
+   <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
 
 　　<!-- LRFのデバイスファイルパス -->
 　　<arg name="port_urg" default="/dev/ttyACM0" /> <!-- LRFのデバイスファイルパスを設定してください -->
@@ -36,5 +36,5 @@ SLAM（gmapping）サンプルのlaunch
   </node>
 
   <!-- rviz(視覚化ツール) -->
-  <node pkg="rviz" type="rviz" args="-d '$(find megarover_samples)/configuration_files/rviz/gmapping.rviz'" name="visualizer" respawn="true" />
+  <node pkg="rviz" type="rviz" args="-d '$(find mecanumrover_samples)/configuration_files/rviz/gmapping.rviz'" name="visualizer" respawn="true" />
 </launch>

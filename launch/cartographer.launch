@@ -10,7 +10,7 @@ SLAM（cartographer）サンプルのlaunch
 
 <launch>
   <!-- オドメトリの配信ノード -->
-  <node pkg="megarover_samples" type="pub_odom" name="pub_odom" />
+  <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
 
   <!-- LRFのデバイスドライバノード -->
   <node name="horizontal_laser" pkg="urg_node"
@@ -23,14 +23,14 @@ SLAM（cartographer）サンプルのlaunch
 
   <!-- メガローバーのロボットモデルの配信ノード -->
   <param name="robot_description"
-    textfile="$(find megarover_samples)/configuration_files/cartographer/megarover_cartographer.urdf" />
+    textfile="$(find mecanumrover_samples)/configuration_files/cartographer/megarover_cartographer.urdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher"
     type="robot_state_publisher" />
 
   <!-- cartographer -->
   <node name="cartographer_node" pkg="cartographer_ros"
       type="cartographer_node" args="
-          -configuration_directory $(find megarover_samples)/configuration_files/cartographer/
+          -configuration_directory $(find mecanumrover_samples)/configuration_files/cartographer/
           -configuration_basename megarover_2d_cartographer.lua"
       output="screen">
     <!--<remap from="echoes" to="horizontal_laser_2d" />-->
