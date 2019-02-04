@@ -1,4 +1,4 @@
-# move base params for MEGAROVER
+# move base params for MECANUMROVER
 
 # プランナーの設定
 base_global_planner: "navfn/NavfnROS"

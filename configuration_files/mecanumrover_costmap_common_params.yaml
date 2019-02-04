@@ -1,4 +1,4 @@
-#costmap common params for MEGAROVER
+#costmap common params for MECANUMROVER
 
 # これ以下の距離にある物体を障害物として扱う
 obstacle_range: 3.5

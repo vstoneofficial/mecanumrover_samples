@@ -1,4 +1,4 @@
-# local costmap params for MEGAROVER
+# local costmap params for MECANUMROVER
 
 local_costmap:
   # 各TFフレームの設定

@@ -1,4 +1,4 @@
-# golobal costmap params for MEGAROVER
+# golobal costmap params for MECANUMROVER
 
 global_costmap:
   # 各TFフレーム名の設定

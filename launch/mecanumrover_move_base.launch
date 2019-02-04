@@ -5,7 +5,7 @@
 
 <launch>
   <!-- オドメトリの配信ノード -->
-  <node pkg="megarover_samples" type="pub_odom" name="pub_odom" />
+  <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
 
   <!-- メガローバーの回転中心からLRFまでの座標変換 -->
   <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.2 0 0.08 3.14159 3.14159 0 base_link horizontal_laser_link 1" />
@@ -19,7 +19,7 @@
   </node>
  
   <!-- Run the map server -->
-  <arg name="map_file" default="$(find megarover_samples)/map/gmap22.yaml"/>
+  <arg name="map_file" default="$(find mecanumrover_samples)/map/gmap22.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
  
   <!--- Run AMCL -->

@@ -6,7 +6,7 @@
 <launch>
 
   <!-- オドメトリの配信ノード -->
-  <node pkg="megarover_samples" type="pub_odom" name="pub_odom" />
+  <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
 
   <!-- メガローバーの回転中心からLRFまでの座標変換 -->
   <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.2 0 0.08 3.14159 3.14159 0 base_link horizontal_laser_link 1" />
@@ -23,7 +23,7 @@
   
  
   <!-- mapサーバー -->
-  <arg name="map_file" default="$(find megarover_samples)/map/gmap22.yaml"/>　<!--マップファイルのパスの指定 -->
+  <arg name="map_file" default="$(find mecanumrover_samples)/map/gmap22.yaml"/>　<!--マップファイルのパスの指定 -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
  
   <!-- 
@@ -67,15 +67,15 @@
  
   <!--- 経路計画，指令値生成ノード　move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" args="/cmd_vel:=/rover_twist">
-    <rosparam file="$(find megarover_samples)/configuration_files/megarover_costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find megarover_samples)/configuration_files/megarover_costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find megarover_samples)/configuration_files/megarover_local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find megarover_samples)/configuration_files/megarover_global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find megarover_samples)/configuration_files/megarover_dwa_local_planner_params.yaml" command="load" />
-    <rosparam file="$(find megarover_samples)/configuration_files/megarover_move_base_params.yaml" command="load" />
+    <rosparam file="$(find mecanumrover_samples)/configuration_files/mecanumrover_costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find mecanumrover_samples)/configuration_files/mecanumrover_costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find mecanumrover_samples)/configuration_files/mecanumrover_local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find mecanumrover_samples)/configuration_files/mecanumrover_global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find mecanumrover_samples)/configuration_files/mecanumrover_dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find mecanumrover_samples)/configuration_files/megarover_move_base_params.yaml" command="load" />
   </node>
 
   <!-- Rviz -->
-  <node pkg="rviz" type="rviz" args="-d '$(find megarover_samples)/configuration_files/rviz/navigation.rviz'" name="visualizer" respawn="true" />
+  <node pkg="rviz" type="rviz" args="-d '$(find mecanumrover_samples)/configuration_files/rviz/navigation.rviz'" name="visualizer" respawn="true" />
 </launch>
 
