@@ -41,7 +41,7 @@ JoyCtrlMegarover::JoyCtrlMegarover():
   vel_pub_ = nh_.advertise<geometry_msgs::Twist>("rover_twist", 1);
 
 
-  joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &JoyCtrlMegarover::joyCallback, this);
+  joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 1, &JoyCtrlMegarover::joyCallback, this);
 
 }
 
@@ -66,5 +66,12 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "joycon");
   JoyCtrlMegarover joy_ctrl_megarover;
   
-  ros::spin();
+  ros::NodeHandle n;
+
+	ros::Rate r(10);
+  while(n.ok()){
+
+  	ros::spinOnce();
+		r.sleep();
+	}
 }
