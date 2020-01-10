@@ -21,7 +21,7 @@ SLAM（cartographer）サンプルのlaunch
     <param name="angle_max" value="1.57" />
   </node>
 
-  <!-- メガローバーのロボットモデルの配信ノード -->
+  <!-- メカナムローバーのロボットモデルの配信ノード -->
   <param name="robot_description"
     textfile="$(find mecanumrover_samples)/configuration_files/cartographer/mecanumrover_cartographer.urdf" />
   <node name="robot_state_publisher" pkg="robot_state_publisher"

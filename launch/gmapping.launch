@@ -16,7 +16,10 @@ SLAM（gmapping）サンプルのlaunch
 　　<arg name="port_urg" default="/dev/ttyACM0" /> <!-- LRFのデバイスファイルパスを設定してください -->
 
 　　<!-- メカナムローバーの旋回中心からLRFまでの座標変換の設定 -->
-　　<node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.17 0 0.08 3.14159 3.14159 0 base_link laser 100" />
+　　<!-- メカナムローバーVer2.0 or Ver2.1の場合 -->
+  <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.2 0 0.08 3.14159 3.14159 0 base_link horizontal_laser_link 1" />
+  <!-- メカナムローバーG120の場合 -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.285 0 0.24 0 0 0 base_link horizontal_laser_link 1" /> -->
 
 　　<!-- LRFのデバイスドライバノード -->
 　　<node pkg="urg_node" type="urg_node" name="urg_node">
