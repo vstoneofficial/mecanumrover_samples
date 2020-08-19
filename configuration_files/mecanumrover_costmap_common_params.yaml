@@ -18,5 +18,5 @@ map_type: costmap
 
 # LRFの設定 
 observation_sources: scan 
-scan: {sensor_frame: horizontal_laser_link, data_type: LaserScan, topic: scan, marking: true, clearing: true, min_obstacle_height: -1.0, max_obstacle_height: 1.0}
+scan: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, min_obstacle_height: -1.0, max_obstacle_height: 1.0}
 

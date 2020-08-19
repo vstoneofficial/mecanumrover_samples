@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.79.0 commit date:2018-03-22, commit time:14:10, hash:f4dc9f9d68b</authoring_tool>
+    </contributor>
+    <created>2020-07-21T15:45:18</created>
+    <modified>2020-07-21T15:45:18</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images/>
+  <library_effects/>
+  <library_geometries>
+    <geometry id="Shape_IndexedFaceSet_022-mesh" name="Shape_IndexedFaceSet.022">
+      <mesh>
+        <source id="Shape_IndexedFaceSet_022-mesh-positions">
+          <float_array id="Shape_IndexedFaceSet_022-mesh-positions-array" count="36">-0.05850011 0.05599981 -0.01759815 -0.05850011 0.05599981 0.01159816 0.05849981 0.05600011 -0.01759815 0.05849981 0.05600011 0.01159816 -0.05849981 -0.05600011 -0.01759815 -0.05849981 -0.05600011 0.01159816 0.05850011 -0.05599981 -0.01759815 0.05850011 -0.05599981 0.01159816 -0.05050009 0.05049985 0.01759815 0.05049985 0.05050009 0.01759815 0.05050009 -0.05049985 0.01759815 -0.05049985 -0.05050009 0.01759815</float_array>
+          <technique_common>
+            <accessor source="#Shape_IndexedFaceSet_022-mesh-positions-array" count="12" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Shape_IndexedFaceSet_022-mesh-normals">
+          <float_array id="Shape_IndexedFaceSet_022-mesh-normals-array" count="54">-2.61089e-6 1 0 1 2.49207e-6 0 2.61089e-6 -1 0 -1 -2.45562e-6 0 0 1.33046e-7 -1 1.92536e-6 -0.737155 0.6757238 0 -1.47536e-7 1 -1.91008e-6 0.7371544 0.6757243 -0.5999999 -1.55913e-6 0.8000001 0.5999998 1.35125e-6 0.8000001 1 2.45562e-6 0 -1 -2.49207e-6 0 0 1.33046e-7 -1 2.03158e-6 -0.7371528 0.6757262 0 -1.47536e-7 1 -2.04929e-6 0.7371528 0.6757262 -0.5999995 -1.62198e-6 0.8000004 0.5999997 1.37485e-6 0.8000004</float_array>
+          <technique_common>
+            <accessor source="#Shape_IndexedFaceSet_022-mesh-normals-array" count="18" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Shape_IndexedFaceSet_022-mesh-vertices">
+          <input semantic="POSITION" source="#Shape_IndexedFaceSet_022-mesh-positions"/>
+        </vertices>
+        <triangles count="20">
+          <input semantic="VERTEX" source="#Shape_IndexedFaceSet_022-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Shape_IndexedFaceSet_022-mesh-normals" offset="1"/>
+          <p>1 0 2 0 0 0 2 1 7 1 6 1 7 2 4 2 6 2 5 3 0 3 4 3 6 4 0 4 2 4 7 5 11 5 5 5 10 6 8 6 11 6 1 7 9 7 3 7 5 8 8 8 1 8 3 9 10 9 7 9 1 0 3 0 2 0 2 10 3 10 7 10 7 2 5 2 4 2 5 11 1 11 0 11 6 12 4 12 0 12 7 13 10 13 11 13 10 14 9 14 8 14 1 15 8 15 9 15 5 16 11 16 8 16 3 17 9 17 10 17</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers/>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Shape_IndexedFaceSet_001" name="Shape_IndexedFaceSet_001" type="NODE">
+        <matrix sid="transform">2.22127e-6 -1 -1.19209e-7 0 1 2.22127e-6 3.6519e-13 0 -1.00395e-13 -1.19209e-7 1 0 0 0 0 1</matrix>
+        <instance_geometry url="#Shape_IndexedFaceSet_022-mesh" name="Shape_IndexedFaceSet_001"/>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

@@ -15,5 +15,5 @@ global_costmap:
 
   obstacle_layer:
     laser_scan_sensor:
-      sensor_frame: horizontal_laser_link
+      sensor_frame: laser
 

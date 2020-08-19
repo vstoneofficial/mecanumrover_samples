@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="world" default="sample.world" />
+  <include file="$(find mecanumrover_samples)/launch/vmecanumrover.launch">
+    <arg name="world" value="$(find mecanumrover_samples)/worlds/$(arg world)" />
+  </include>
+
+</launch>

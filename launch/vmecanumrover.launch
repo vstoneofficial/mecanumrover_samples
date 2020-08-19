@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="model" default="$(find mecanumrover_samples)/urdf/vmecanumrover.xacro" />
+  <arg name="world" default="" />
+  <arg name="rvizconfig" default="$(find mecanumrover_samples)/conf.rviz" />  
+
+  <arg name="rover_d" default="0.133" />
+  <arg name="rover_hb" default="0.115" />
+  <arg name="f_l" default="0" />
+  <arg name="f_r" default="1" />
+  <arg name="r_l" default="2" />
+  <arg name="r_r" default="3" />
+
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model) --inorder"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world)"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model vmecanumrover" />
+
+  <rosparam command="load" file="$(find mecanumrover_samples)/configuration_files/vmecanumrover_move_controller.yaml" ns="vmecanumrover"/>  
+  <rosparam command="load" file="$(find mecanumrover_samples)/configuration_files/vmecanumrover_sus_controller.yaml" ns="vmecanumrover"/>  
+  <rosparam command="load" file="$(find mecanumrover_samples)/configuration_files/vmecanumrover_bumper_controller.yaml" ns="vmecanumrover"/>  
+  <rosparam command="load" file="$(find mecanumrover_samples)/configuration_files/vmecanumrover_wyrelesscharger_controller.yaml" ns="vmecanumrover"/>  
+  <rosparam command="load" file="$(find mecanumrover_samples)/configuration_files/vmecanumrover_joint_state_controller.yaml" ns="vmecanumrover"/>  
+  <node name="controller_spawner" pkg="controller_manager"
+        type="spawner" respawn="false"
+        output="screen" ns="/vmecanumrover"
+        args="joint_controller0 joint_controller1 joint_controller2 joint_controller3 
+              sus_controller0 sus_controller1 sus_controller2 sus_controller3
+              bumper_controller0 bumper_controller1 bumper_controller2
+              bumper_controller3 bumper_controller4 bumper_controller5
+              bumper_controller6 bumper_controller7 bumper_controller8
+              bumper_controller9 bumper_controller10 bumper_controller11
+              wyrelesscharger_controller
+              joint_state_controller"/>
+
+  <node name="vmecanum_twist" pkg="mecanumrover_samples" type="vmecanum_twist" output="screen">
+    <param name="gain" value="20.5"/>
+    <param name="rover_d" value="$(arg rover_d)"/>
+    <param name="rover_hb" value="$(arg rover_hb)"/>
+    <param name="f_l" value="$(arg f_l)"/>
+    <param name="f_r" value="$(arg f_r)"/>
+    <param name="r_l" value="$(arg r_l)"/>
+    <param name="r_r" value="$(arg r_r)"/>
+    <remap from="wheel0" to="/vmecanumrover/joint_controller0/command" />
+    <remap from="wheel1" to="/vmecanumrover/joint_controller1/command" />
+    <remap from="wheel2" to="/vmecanumrover/joint_controller2/command" />
+    <remap from="wheel3" to="/vmecanumrover/joint_controller3/command" />
+  </node>
+
+  <node name="vmecanum_odom" pkg="mecanumrover_samples" type="vmecanum_odom" output="screen">
+    <param name="rover_d" value="$(arg rover_d)"/>
+    <param name="rover_hb" value="$(arg rover_hb)"/>
+    <param name="f_l" value="$(arg f_l)"/>
+    <param name="f_r" value="$(arg f_r)"/>
+    <param name="r_l" value="$(arg r_l)"/>
+    <param name="r_r" value="$(arg r_r)"/>
+    <remap from="wheel0/state" to="/vmecanumrover/joint_controller0/state" />
+    <remap from="wheel1/state" to="/vmecanumrover/joint_controller1/state" />
+    <remap from="wheel2/state" to="/vmecanumrover/joint_controller2/state" />
+    <remap from="wheel3/state" to="/vmecanumrover/joint_controller3/state" />
+  </node>
+
+
+  <node name="vmecanum_sensor" pkg="mecanumrover_samples" type="vmecanum_sensor" output="screen">
+    <remap from="sn0/state" to="/vmecanumrover/bumper_controller0/state" />
+    <remap from="sn1/state" to="/vmecanumrover/bumper_controller1/state" />
+    <remap from="sn2/state" to="/vmecanumrover/bumper_controller2/state" />
+    <remap from="sn3/state" to="/vmecanumrover/bumper_controller3/state" />
+    <remap from="sn4/state" to="/vmecanumrover/bumper_controller4/state" />
+    <remap from="sn5/state" to="/vmecanumrover/bumper_controller5/state" />
+    <remap from="sn6/state" to="/vmecanumrover/bumper_controller6/state" />
+    <remap from="sn7/state" to="/vmecanumrover/bumper_controller7/state" />
+    <remap from="sn8/state" to="/vmecanumrover/bumper_controller8/state" />
+    <remap from="sn9/state" to="/vmecanumrover/bumper_controller9/state" />
+    <remap from="sn10/state" to="/vmecanumrover/bumper_controller10/state" />
+    <remap from="sn11/state" to="/vmecanumrover/bumper_controller11/state" />
+  </node>
+
+  <node name="vmecanum_liftup_sus" pkg="mecanumrover_samples" type="vmecanum_liftup_sus" respawn="false" output="screen">
+    <remap from="sus0" to="/vmecanumrover/sus_controller0/command" />
+    <remap from="sus1" to="/vmecanumrover/sus_controller1/command" />
+    <remap from="sus2" to="/vmecanumrover/sus_controller2/command" />
+    <remap from="sus3" to="/vmecanumrover/sus_controller3/command" />
+  </node>
+
+</launch>

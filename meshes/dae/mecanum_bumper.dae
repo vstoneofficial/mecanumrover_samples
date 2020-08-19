@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.79.0 commit date:2018-03-22, commit time:14:10, hash:f4dc9f9d68b</authoring_tool>
+    </contributor>
+    <created>2020-07-21T17:53:57</created>
+    <modified>2020-07-21T17:53:57</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images/>
+  <library_effects/>
+  <library_geometries>
+    <geometry id="立方体_005-mesh" name="立方体.005">
+      <mesh>
+        <source id="立方体_005-mesh-positions">
+          <float_array id="立方体_005-mesh-positions-array" count="96">-0.05199998 -0.001489877 -0.009011626 -0.05199998 -0.001489877 0.009011626 -0.05199998 0 -0.009011626 -0.05199998 0 0.009011626 0.05199998 -0.001489877 -0.009011626 0.05199998 -0.001489877 0.009011626 0.05199998 0 -0.009011626 0.05199998 0 0.009011626 -0.05199998 -0.001489877 0.01048779 -0.05199998 0 0.01048779 0.05199998 0 0.01048779 0.05199998 -0.001489877 0.01048779 -0.05199998 0 -0.01048779 -0.05199998 -0.001489877 -0.01048779 0.05199998 0 -0.01048779 0.05199998 -0.001489877 -0.01048779 0.03989785 0.01102167 -0.009011626 -0.03989785 0.01102167 -0.009011626 -0.03989785 0.01102167 0.009011626 0.03989785 0.01102167 0.009011626 -0.03989785 0.01102167 0.01048779 0.03989785 0.01102167 0.01048779 0.03989785 0.01102167 -0.01048779 -0.03989785 0.01102167 -0.01048779 -0.05199998 0.003541111 0.009011626 0.05199998 0.003541111 0.009011626 -0.05199998 0.003541111 0.01048779 0.05199998 0.003541111 0.01048779 -0.05199998 0.003541111 -0.009011626 -0.05199998 0.003541111 -0.01048779 0.05199998 0.003541111 -0.01048779 0.05199998 0.003541111 -0.009011626</float_array>
+          <technique_common>
+            <accessor source="#立方体_005-mesh-positions-array" count="32" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="立方体_005-mesh-normals">
+          <float_array id="立方体_005-mesh-normals-array" count="24">-1 0 0 0 1 0 1 0 0 0 -1 0 0 0 -1 0 0 1 -0.5257842 0.850618 0 0.5257842 0.850618 0</float_array>
+          <technique_common>
+            <accessor source="#立方体_005-mesh-normals-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="立方体_005-mesh-vertices">
+          <input semantic="POSITION" source="#立方体_005-mesh-positions"/>
+        </vertices>
+        <triangles count="60">
+          <input semantic="VERTEX" source="#立方体_005-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#立方体_005-mesh-normals" offset="1"/>
+          <p>1 0 2 0 0 0 3 1 6 1 2 1 7 2 4 2 6 2 5 3 0 3 4 3 0 3 15 3 4 3 24 4 19 4 25 4 9 5 11 5 10 5 7 2 11 2 5 2 1 0 9 0 3 0 5 3 8 3 1 3 14 4 13 4 12 4 28 6 23 6 29 6 2 0 13 0 0 0 4 2 14 2 6 2 18 1 21 1 19 1 16 1 23 1 17 1 26 6 18 6 24 6 29 4 22 4 30 4 25 7 21 7 27 7 30 7 16 7 31 7 31 5 17 5 28 5 27 5 20 5 26 5 10 5 26 5 9 5 7 2 27 2 10 2 9 0 24 0 3 0 3 4 25 4 7 4 6 5 28 5 2 5 14 2 31 2 6 2 12 4 30 4 14 4 2 0 29 0 12 0 1 0 3 0 2 0 3 1 7 1 6 1 7 2 5 2 4 2 5 3 1 3 0 3 0 3 13 3 15 3 24 4 18 4 19 4 9 5 8 5 11 5 7 2 10 2 11 2 1 0 8 0 9 0 5 3 11 3 8 3 14 4 15 4 13 4 28 6 17 6 23 6 2 0 12 0 13 0 4 2 15 2 14 2 18 1 20 1 21 1 16 1 22 1 23 1 26 6 20 6 18 6 29 4 23 4 22 4 25 7 19 7 21 7 30 7 22 7 16 7 31 5 16 5 17 5 27 5 21 5 20 5 10 5 27 5 26 5 7 2 25 2 27 2 9 0 26 0 24 0 3 4 24 4 25 4 6 5 31 5 28 5 14 2 30 2 31 2 12 4 29 4 30 4 2 0 28 0 29 0</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers/>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="bumber" name="bumber" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <instance_geometry url="#立方体_005-mesh" name="bumber"/>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>
