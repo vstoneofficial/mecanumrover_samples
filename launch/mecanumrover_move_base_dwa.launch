@@ -18,7 +18,7 @@
   <node name="horizontal_laser" pkg="urg_node"
     type="urg_node" >
     <param name="serial_port" value="/dev/ttyACM0" />　<!-- デバイスドライバファイルのパス -->
-    <param name="frame_id" value="horizontal_laser_link" />
+    <param name="frame_id" value="laser" />
     <param name="angle_min" value="-1.57" />　<!-- LRFの有効検出角度（下限） -->
     <param name="angle_max" value="1.57" />  <!-- LRFの有効検出角度（上限） -->
   </node>

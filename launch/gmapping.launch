@@ -24,6 +24,7 @@ SLAM（gmapping）サンプルのlaunch
 　　<!-- LRFのデバイスドライバノード -->
 　　<node pkg="urg_node" type="urg_node" name="urg_node">
        <param name="serial_port" value="$(arg port_urg)" />
+       <param name="frame_id" value="laser" />
        <param name="angle_min" value="-1.57" /> <!-- 視野角の指定（最小値） -->
        <param name="angle_max" value="1.57" />  <!-- 視野角の指定（最大値） -->
 　　</node>
