@@ -46,6 +46,7 @@ int main(int argc, char** argv)
 
   pn.getParam("rover_d", ROVER_D);
   pn.getParam("rover_hb", ROVER_HB);
+  pn.getParam("w_rate", w_rate);
   pn.getParam("f_l", F_L);
   pn.getParam("f_r", F_R);
   pn.getParam("r_l", R_L);

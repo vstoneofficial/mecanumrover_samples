@@ -6,6 +6,7 @@
 
   <arg name="rover_d" default="0.133" />
   <arg name="rover_hb" default="0.115" />
+  <arg name="w_rate" default="0.0525" />
   <arg name="f_l" default="0" />
   <arg name="f_r" default="1" />
   <arg name="r_l" default="2" />
@@ -58,6 +59,7 @@
   <node name="vmecanum_odom" pkg="mecanumrover_samples" type="vmecanum_odom" output="screen">
     <param name="rover_d" value="$(arg rover_d)"/>
     <param name="rover_hb" value="$(arg rover_hb)"/>
+    <param name="w_rate" value="$(arg w_rate)"/>
     <param name="f_l" value="$(arg f_l)"/>
     <param name="f_r" value="$(arg f_r)"/>
     <param name="r_l" value="$(arg r_l)"/>
