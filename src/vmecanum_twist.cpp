@@ -51,7 +51,7 @@ int main(int argc, char** argv)
       float mem_com_x = twist_last.linear.x*gain;  //[m/s]
       float mem_com_y = twist_last.linear.y*gain;  //[m/s]
       float mem_com_z = twist_last.angular.z*gain;  //[rad/s]
-      float dCenter2Wheel = sqrt(ROVER_D*ROVER_D + ROVER_HB*ROVER_HB);
+      float dCenter2Wheel = ROVER_D + ROVER_HB;
 
       data[F_L].data = -1.0*(mem_com_x - dCenter2Wheel*mem_com_z - mem_com_y);
       data[F_R].data = (mem_com_x + dCenter2Wheel*mem_com_z + mem_com_y);
