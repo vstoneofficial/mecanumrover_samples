@@ -704,6 +704,13 @@
       <legacyModeNS>true</legacyModeNS>
       <odometryFrame>map</odometryFrame>
     </plugin>
+
+    <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
+      <frameName>world</frameName>
+      <bodyName>base_link</bodyName>
+      <topicName>/vmecanumrover/ground_truth</topicName>
+      <updateRate>10.0</updateRate>
+    </plugin>
   </gazebo>
 
 </robot>
