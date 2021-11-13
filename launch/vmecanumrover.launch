@@ -6,7 +6,11 @@
 
   <arg name="rover_d" default="0.133" />
   <arg name="rover_hb" default="0.115" />
-  <arg name="w_rate" default="0.0525" />
+
+  <!-- <arg name="w_rate" default="0.0525" /> -->
+  <!-- wheel + barrel = 0.157[mm] -->
+  <arg name="w_rate" default="0.0785" />
+
   <arg name="f_l" default="0" />
   <arg name="f_r" default="1" />
   <arg name="r_l" default="2" />

@@ -5,12 +5,20 @@
 #include <math.h>
 //#include "mecanumrover.h"
 
+// odometry reference : https://www.researchgate.net/publication/315058609_Modelling_of_Dynamics_of_a_Wheeled_Mobile_Robot_with_Mecanum_Wheels_with_the_use_of_Lagrange_Equations_of_the_Second_Kind
+
+// wheel + barrel = 157[mm] ?
+float wheel_radius = 0.157/2; // 0.0785f
 
 float wheel_speed[4] = { 0 };
-float w_rate=0.0525f;
+//float w_rate=0.0525f;
+
+float w_rate=wheel_radius;
+
 void state0_callback(const control_msgs::JointControllerState& state_msg)
 {
   wheel_speed[0] = state_msg.process_value*w_rate;
+  // ROS_INFO_STREAM(state_msg.process_value << " x " << w_rate << " = " << wheel_speed[0]);
 }
 void state1_callback(const control_msgs::JointControllerState& state_msg)
 {
