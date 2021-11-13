@@ -47,7 +47,11 @@
               joint_state_controller"/>
 
   <node name="vmecanum_twist" pkg="mecanumrover_samples" type="vmecanum_twist" output="screen">
-    <param name="gain" value="16.5"/>
+    <!-- gain 16.5 : cmd_vel 1[m/s] -> about 1.2[m/s] -->
+    <!-- <param name="gain" value="16.5"/> -->
+
+    <!-- 16.5 * 1.0/1.2 = 13.75 -->
+    <param name="gain" value="13.75"/>
     <param name="rover_d" value="$(arg rover_d)"/>
     <param name="rover_hb" value="$(arg rover_hb)"/>
     <param name="f_l" value="$(arg f_l)"/>

@@ -8,7 +8,12 @@
 
 geometry_msgs::Twist twist_last;
 bool twist_enable;
-float gain=21;
+
+//float gain=21;
+
+// gain 16.5 : cmd_vel 1[m/s] -> about 1.2[m/s] 
+// correct gain : 16.5 * 1.0/1.2 = 13.75
+float gain = 13.75;
 
 void twist_stamped_callback(const geometry_msgs::Twist& twist_msg)
 {

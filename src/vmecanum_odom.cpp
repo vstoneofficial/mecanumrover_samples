@@ -7,13 +7,13 @@
 
 // odometry reference : https://www.researchgate.net/publication/315058609_Modelling_of_Dynamics_of_a_Wheeled_Mobile_Robot_with_Mecanum_Wheels_with_the_use_of_Lagrange_Equations_of_the_Second_Kind
 
-// wheel + barrel = 157[mm] ?
-float wheel_radius = 0.157/2; // 0.0785f
-
 float wheel_speed[4] = { 0 };
+
 //float w_rate=0.0525f;
 
-float w_rate=wheel_radius;
+// wheel + barrel = 157[mm]
+// correct w_rate = 0.157/2 = 0.0785
+float w_rate=0.0785f;
 
 void state0_callback(const control_msgs::JointControllerState& state_msg)
 {
