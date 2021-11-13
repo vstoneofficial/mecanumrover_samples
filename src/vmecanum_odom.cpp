@@ -60,11 +60,11 @@ int main(int argc, char** argv)
 
     geometry_msgs::Twist rover_odo;
 
-    rover_odo.linear.x  = ((wheel_speed[F_R] + wheel_speed[R_R] + -1.0*(wheel_speed[F_L] + wheel_speed[R_L]))/4.0);
-    rover_odo.linear.y  = ((wheel_speed[F_R] + -1.0*wheel_speed[R_R] + wheel_speed[F_L] + -1.0*wheel_speed[R_L]))/4.0;
+    rover_odo.linear.x  = (-wheel_speed[F_L] - wheel_speed[R_L] + wheel_speed[R_R] + wheel_speed[F_R])/4.0;
+    rover_odo.linear.y = (wheel_speed[F_L] - wheel_speed[R_L] - wheel_speed[R_R] + wheel_speed[F_R])/4.0;
 
     double dCenter2Wheel = ROVER_D + ROVER_HB;
-    rover_odo.angular.z = (atan(wheel_speed[F_L]/dCenter2Wheel) + atan(wheel_speed[F_R]/dCenter2Wheel) + atan(wheel_speed[R_L]/dCenter2Wheel) + atan(wheel_speed[R_R]/dCenter2Wheel))/4.0;
+    rover_odo.angular.z = (wheel_speed[F_L] + wheel_speed[R_L] + wheel_speed[R_R] + wheel_speed[F_R])/(4.0 * dCenter2Wheel);
 
     odom_pub.publish(rover_odo);
 
