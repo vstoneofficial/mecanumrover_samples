@@ -7,7 +7,8 @@
 
 
 float wheel_speed[4] = { 0 };
-float w_rate=0.0525f;
+float wheel_circumference=0.4775f;
+float w_rate=wheel_circumference/(2*M_PI);
 void state0_callback(const control_msgs::JointControllerState& state_msg)
 {
   wheel_speed[0] = state_msg.process_value*w_rate;
@@ -46,11 +47,13 @@ int main(int argc, char** argv)
 
   pn.getParam("rover_d", ROVER_D);
   pn.getParam("rover_hb", ROVER_HB);
-  pn.getParam("w_rate", w_rate);
+  pn.getParam("wheel_circumference", wheel_circumference);
   pn.getParam("f_l", F_L);
   pn.getParam("f_r", F_R);
   pn.getParam("r_l", R_L);
   pn.getParam("r_r", R_R);
+
+  w_rate=wheel_circumference/(2*M_PI);
 
   float dt = 1.0 / publish_rate;
   ros::Rate loop_rate(publish_rate);
@@ -64,7 +67,7 @@ int main(int argc, char** argv)
     rover_odo.linear.y  = ((wheel_speed[F_R] + -1.0*wheel_speed[R_R] + wheel_speed[F_L] + -1.0*wheel_speed[R_L]))/4.0;
 
     double dCenter2Wheel = ROVER_D + ROVER_HB;
-    rover_odo.angular.z = (atan(wheel_speed[F_L]/dCenter2Wheel) + atan(wheel_speed[F_R]/dCenter2Wheel) + atan(wheel_speed[R_L]/dCenter2Wheel) + atan(wheel_speed[R_R]/dCenter2Wheel))/4.0;
+    rover_odo.angular.z = (wheel_speed[F_L] + wheel_speed[R_L] + wheel_speed[R_R] + wheel_speed[F_R])/(4.0 * dCenter2Wheel);
 
     odom_pub.publish(rover_odo);
 

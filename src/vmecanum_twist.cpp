@@ -8,7 +8,7 @@
 
 geometry_msgs::Twist twist_last;
 bool twist_enable;
-float gain=21;
+float wheel_circumference=0.4775f;
 
 void twist_stamped_callback(const geometry_msgs::Twist& twist_msg)
 {
@@ -33,7 +33,7 @@ int main(int argc, char** argv)
   // Subscribe
   ros::Subscriber joy_sub = n.subscribe("rover_twist", 10, twist_stamped_callback);
 
-  pn.getParam("gain", gain);
+  pn.getParam("wheel_circumference", wheel_circumference);
   pn.getParam("rover_d", ROVER_D);
   pn.getParam("rover_hb", ROVER_HB);
   pn.getParam("f_l", F_L);
@@ -48,15 +48,15 @@ int main(int argc, char** argv)
     {
       std_msgs::Float64 data[4];
 
-      float mem_com_x = twist_last.linear.x*gain;  //[m/s]
-      float mem_com_y = twist_last.linear.y*gain;  //[m/s]
-      float mem_com_z = twist_last.angular.z*gain;  //[rad/s]
+      float mem_com_x = twist_last.linear.x;  //[m/s]
+      float mem_com_y = twist_last.linear.y;  //[m/s]
+      float mem_com_z = twist_last.angular.z;  //[rad/s]
       float dCenter2Wheel = ROVER_D + ROVER_HB;
 
-      data[F_L].data = -1.0*(mem_com_x - dCenter2Wheel*mem_com_z - mem_com_y);
-      data[F_R].data = (mem_com_x + dCenter2Wheel*mem_com_z + mem_com_y);
-      data[R_L].data = -1.0*(mem_com_x - dCenter2Wheel*mem_com_z + mem_com_y);
-      data[R_R].data = (mem_com_x + dCenter2Wheel*mem_com_z - mem_com_y);
+      data[F_L].data = (-1.0*(mem_com_x - dCenter2Wheel*mem_com_z - mem_com_y)*2*M_PI)/wheel_circumference;
+      data[F_R].data = ((mem_com_x + dCenter2Wheel*mem_com_z + mem_com_y)*2*M_PI)/wheel_circumference;
+      data[R_L].data = (-1.0*(mem_com_x - dCenter2Wheel*mem_com_z + mem_com_y)*2*M_PI)/wheel_circumference;
+      data[R_R].data = ((mem_com_x + dCenter2Wheel*mem_com_z - mem_com_y)*2*M_PI)/wheel_circumference;
 
       wheel0_pub.publish(data[0]);
       wheel1_pub.publish(data[1]);
