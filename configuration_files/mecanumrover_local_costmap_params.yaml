@@ -1,27 +1,29 @@
 # local costmap params for MECANUMROVER
 
 local_costmap:
+  plugins:
+    - {name: obstacle_layer,  type: "costmap_2d::ObstacleLayer"}
+    - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
+
   # 各TFフレームの設定
   global_frame: odom
   robot_base_frame: base_link
 
+  #inflation_layerの設定
+  inflation_layer:
+    inflation_radius: 0.05
+
   # 更新頻度の設定
-  update_frequency: 5.0
+  update_frequency: 3.0
   publish_frequency: 3.0
 
-  static_map: false
-  rolling_window: true
-
   # ローカルコストマップの計算範囲
+  rolling_window: true
   width: 3.0
   height: 3.0
 
   # ローカルコストマップの解像度
-  resolution: 0.015
+  resolution: 0.05
 
   # タイムスタンプのずれの許容量
-  transform_tolerance: 5.0
-
-  obstacle_layer:
-   laser_scan_sensor:
-     sensor_frame: laser
+  transform_tolerance: 0.5

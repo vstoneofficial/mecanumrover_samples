@@ -9,30 +9,76 @@ SLAM（gmapping）サンプルのlaunch
 -->
 
 <launch>
-   <!-- オドメトリの配信ノード -->
-   <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
 
+  <!-- 引数 -->
+  <arg name="rover_type"  default="mecanum2"  doc="mecanum2 / f120" />
+  <arg name="lrf"         default="urg"       doc="urg / tg30"/>
+
+  <!-- オドメトリの配信ノード -->
+  <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
+
+  <!-- URG-04LX-UG01の場合 -->
+  <group if="$(eval lrf=='urg')">
 　　<!-- LRFのデバイスファイルパス -->
 　　<arg name="port_urg" default="/dev/ttyACM0" /> <!-- LRFのデバイスファイルパスを設定してください -->
 
 　　<!-- メカナムローバーの旋回中心からLRFまでの座標変換の設定 -->
-　　<!-- メカナムローバーVer2.0 or Ver2.1の場合 -->
-  <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.2 0 0.08 3.14159 3.14159 0 base_link laser 1" />
-  <!-- メカナムローバーG120の場合 -->
-  <!-- <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.285 0 0.24 0 0 0 base_link laser 1" /> -->
+    <group if="$(eval rover_type=='mecanum2')">
+　　  <!-- メカナムローバーVer2.0 or Ver2.1の場合 -->
+      <!-- argsの項でLRFの位置を調整できます。 args="x y z y p r" -->
+      <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.199 0 0.08 0 0 3.14159 base_link lidar_link 1" />
+    </group>
+    <group if="$(eval rover_type=='f120')">
+      <!-- メカナムローバーG120の場合 -->
+      <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.285 0 0.24 0 0 0 base_link lidar_link 1" />
+    </group>
 
 　　<!-- LRFのデバイスドライバノード -->
 　　<node pkg="urg_node" type="urg_node" name="urg_node">
        <param name="serial_port" value="$(arg port_urg)" />
-       <param name="frame_id" value="laser" />
+       <param name="frame_id" value="lidar_link" />
        <param name="angle_min" value="-1.57" /> <!-- 視野角の指定（最小値） -->
        <param name="angle_max" value="1.57" />  <!-- 視野角の指定（最大値） -->
 　　</node>
+  </group>
+
+  <!-- YDLiDAR TG30の場合 -->
+  <group if="$(eval lrf=='tg30')">
+    <!-- メカナムローバーの旋回中心からLRFまでの座標変換の設定 -->
+    <group if="$(eval rover_type=='mecanum2')">
+　　  <!-- メカナムローバーVer2.0 or Ver2.1の場合 -->
+      <!-- argsの項でLRFの位置を調整できます。 args="x y z y p r" -->
+      <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.22 0 0.08 0 0 0 base_link lidar_link 1" />
+    </group>
+    <group if="$(eval rover_type=='f120')">
+      <!-- メカナムローバーG120の場合 -->
+      <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.305 0 0.24 0 0 0 base_link lidar_link 1" />
+    </group>
+
+    <!-- YDLiDARデバイスドライバノード-->
+    <node name="ydlidar_node"  pkg="ydlidar_ros"  type="ydlidar_node" output="screen" respawn="false" >
+      <param name="port"         type="string" value="/dev/ydlidar"/>  <!-- LRFのデバイスファイルパス -->
+      <param name="baudrate"         type="int" value="512000"/>  
+      <param name="frame_id"     type="string" value="lidar_link"/>
+      <param name="resolution_fixed"    type="bool"   value="true"/>
+      <param name="auto_reconnect"    type="bool"   value="true"/>
+      <param name="reversion"    type="bool"   value="true"/>
+      <param name="angle_min"    type="double" value="-180" />  <!-- センサの正面を0度する視野角の指定（最小値） -->
+      <param name="angle_max"    type="double" value="180" />   <!-- センサの正面を0度する視野角の指定（最大値） -->
+      <param name="range_min"    type="double" value="0.01" />
+      <param name="range_max"    type="double" value="32.0" />
+      <param name="ignore_array" type="string" value="" />
+      <param name="frequency"    type="double" value="10"/>
+      <param name="samp_rate"    type="int"    value="20"/>
+      <param name="isTOFLidar"    type="bool"   value="true"/>
+    </node>
+
+  </group>
 
   <!-- gmapping -->
   <node pkg="gmapping" type="slam_gmapping" name="mapper">
-    <param name="maxUrange" value="5.2" type="double" />
-    <param name="delta" value="0.015" />
+    <param name="maxUrange" value="32.0" type="double" />
+    <param name="delta" value="0.05" />
     <param name="xmax" value="30" type="double" />
     <param name="ymax" value="30" type="double" />
     <param name="xmin" value="-30" type="double" />
