@@ -6,7 +6,7 @@
 <launch>
 
   <!-- 引数 -->
-  <arg name="rover_type"  default="mecanum2"  doc="mecanum2 / f120" />
+  <arg name="rover_type"  default="mecanum2"  doc="mecanum2 / g120" />
   <arg name="lrf"         default="urg"       doc="urg / tg30 / sim"/>
 
   <!-- オドメトリの配信ノード -->
@@ -23,7 +23,7 @@
       <!-- argsの項でLRFの位置を調整できます。 args="x y z y p r" -->
       <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.199 0 0.08 0 0 3.14159 base_link lidar_link 1" />
     </group>
-    <group if="$(eval rover_type=='f120')">
+    <group if="$(eval rover_type=='g120')">
       <!-- メカナムローバーG120の場合 -->
       <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.285 0 0.24 0 0 0 base_link lidar_link 1" />
     </group>
@@ -45,7 +45,7 @@
       <!-- argsの項でLRFの位置を調整できます。 args="x y z y p r" -->
       <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.22 0 0.08 0 0 0 base_link lidar_link 1" />
     </group>
-    <group if="$(eval rover_type=='f120')">
+    <group if="$(eval rover_type=='g120')">
       <!-- メカナムローバーG120の場合 -->
       <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.305 0 0.24 0 0 0 base_link lidar_link 1" />
     </group>
@@ -79,7 +79,7 @@
       <!-- argsの項でLRFの位置を調整できます。 args="x y z y p r" -->
       <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.199 0 0.08 0 0 3.14159 base_link lidar_link 1" />
     </group>
-    <group if="$(eval rover_type=='f120')">
+    <group if="$(eval rover_type=='g120')">
       <!-- メカナムローバーG120の場合 -->
       <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.285 0 0.24 0 0 0 base_link lidar_link 1" />
     </group>
