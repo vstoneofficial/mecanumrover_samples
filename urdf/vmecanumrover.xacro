@@ -453,13 +453,13 @@
 
 
 
-  <!-- base attachment(LiDER,emergency button,wyreless charge) board(front) -->
+  <!-- base attachment(LiDAR,emergency button,wyreless charge) board(front) -->
   <!--  upper side  --> 
 <!--  <xacro:optionattachboard prefix="front" xyz="0.157 0 0.1665" z_dir="0" /> -->
   <!--  lower side  -->
   <xacro:optionattachboard prefix="front" xyz="0.157 0 0.1585" z_dir="0" />   
 
-  <!-- base attachment(LiDER,emergency button,wyreless charge) board(back) -->
+  <!-- base attachment(LiDAR,emergency button,wyreless charge) board(back) -->
   <!--  upper side  -->
 <!--  <xacro:optionattachboard prefix="back" xyz="-0.157 0 0.1665" z_dir="180" /> -->
   <!--  lower side  -->
@@ -467,25 +467,25 @@
 
 
 
-  <!-- LiDER  -->
-  <joint name="lider_joint" type="fixed">
+  <!-- LiDAR  -->
+  <joint name="lidar_joint" type="fixed">
     <parent link="board_front_link"/>
-    <child  link="lider_link"/>
+    <child  link="lidar_link"/>
   <!-- attach upper side -->
 <!--    <origin xyz="0.042 0 0.0570" rpy="0 0 0"/> -->
   <!-- attach lower side -->
     <origin xyz="0.042 0 -0.0570" rpy="${radians(180)} 0 0"/>  
   </joint>
-  <link name="lider_link">
+  <link name="lidar_link">
     <visual>
       <geometry>
-          <mesh filename="package://mecanumrover_samples/meshes/dae/mecanum_lider.dae" />
+          <mesh filename="package://mecanumrover_samples/meshes/dae/mecanum_lidar.dae" />
       </geometry>
       <material name="black"/>
     </visual>
     <collision>
       <geometry>
-          <mesh filename="package://mecanumrover_samples/meshes/stl/mecanum_lider.stl" />
+          <mesh filename="package://mecanumrover_samples/meshes/stl/mecanum_lidar.stl" />
       </geometry>
     </collision>
     <inertial>
@@ -493,9 +493,9 @@
     </inertial>  
 
   </link>
-  <gazebo reference="lider_link">
+  <gazebo reference="lidar_link">
     <material>Gazebo/Black</material>
-    <sensor type="ray" name="lrf_sensor">
+    <sensor type="ray" name="lidar_sensor">
       <pose>0 0 0 0 0 0</pose>
       <visualize>true</visualize>
       <update_rate>40</update_rate>
@@ -521,7 +521,7 @@
       </ray>
       <plugin name="gazebo_ros_lrf_controller" filename="libgazebo_ros_laser.so">
         <topicName>/scan</topicName>
-        <frameName>laser</frameName>
+        <frameName>lidar_link</frameName>
       </plugin>
     </sensor>
   </gazebo>

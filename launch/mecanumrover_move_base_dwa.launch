@@ -7,7 +7,7 @@
 
   <!-- 引数 -->
   <arg name="rover_type"  default="mecanum2"  doc="mecanum2 / f120" />
-  <arg name="lrf"         default="urg"       doc="urg / tg30"/>
+  <arg name="lrf"         default="urg"       doc="urg / tg30 / sim"/>
 
   <!-- オドメトリの配信ノード -->
   <node pkg="mecanumrover_samples" type="pub_odom" name="pub_odom" />
@@ -70,10 +70,26 @@
 
   </group>
 
+  <!-- シミュレータの場合 -->
+  <group if="$(eval lrf=='sim')">
+
+    <!-- メカナムローバーの旋回中心からLRFまでの座標変換の設定 -->
+    <group if="$(eval rover_type=='mecanum2')">
+　　  <!-- メカナムローバーVer2.0 or Ver2.1の場合 -->
+      <!-- argsの項でLRFの位置を調整できます。 args="x y z y p r" -->
+      <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.199 0 0.08 0 0 3.14159 base_link lidar_link 1" />
+    </group>
+    <group if="$(eval rover_type=='f120')">
+      <!-- メカナムローバーG120の場合 -->
+      <node pkg="tf" type="static_transform_publisher" name="stp_laser" args="0.285 0 0.24 0 0 0 base_link lidar_link 1" />
+    </group>
+
+  </group>
+
   
  
   <!-- mapサーバー -->
-  <arg name="map_file" default="$(find mecanumrover_samples)/map/gmap22.yaml"/>　<!--マップファイルのパスの指定 -->
+  <arg name="map_file" default="$(find mecanumrover_samples)/map/vmecanumrover_samplemap.yaml"/>　<!--マップファイルのパスの指定 -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
  
   <!-- 

@@ -1,6 +1,4 @@
 *.json
 
 .vscode/
-map/
-src/mvetest.cpp
-launch/testrun.launch
+
