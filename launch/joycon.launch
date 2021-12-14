@@ -17,10 +17,10 @@ rosserialを使ってROSとメカナムローバーを接続し、PCにゲーム
   <node pkg="mecanumrover_samples" type="joycon" name="joycon" respawn="true">
     <param name="axis_linear_x" value="1" />
     <param name="axis_linear_y" value="0" />
-    <param name="axis_angular" value="2" />
+    <param name="axis_angular" value="3" />
     <param name="scale_linear" value="0.8" />
     <param name="scale_angular" value="1.0" />
-    <param name="safety_button" value="7" />
+    <param name="safety_button" value="1" />
   </node>
     
 

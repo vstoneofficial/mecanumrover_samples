@@ -13,6 +13,8 @@
   <arg name="r_r" default="3" />
 
   <param name="robot_description" command="$(find xacro)/xacro $(arg model) --inorder"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world)"/>
